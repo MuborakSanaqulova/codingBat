@@ -3,10 +3,10 @@ package uz.pdp.vazifa2.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.vazifa2.common.ApiResponse;
-import uz.pdp.vazifa2.entity.Language;
+import uz.pdp.vazifa2.entity.Category;
 import uz.pdp.vazifa2.entity.Task;
 import uz.pdp.vazifa2.payload.TaskDto;
-import uz.pdp.vazifa2.repository.LanguageRepository;
+import uz.pdp.vazifa2.repository.CategoryRepository;
 import uz.pdp.vazifa2.repository.TaskRepository;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class TaskService {
     TaskRepository taskRepository;
 
     @Autowired
-    LanguageRepository languageRepository;
+    CategoryRepository categoryRepository;
 
     public List<Task> getTasks() {
         return taskRepository.findAll();
@@ -32,11 +32,11 @@ public class TaskService {
 
     public ApiResponse addTask(TaskDto taskDto) {
 
-        Optional<Language> optionalLanguage = languageRepository.findById(taskDto.getLanguageId());
-        if (!optionalLanguage.isPresent())
+        Optional<Category> optionalCategory = categoryRepository.findById(taskDto.getCategoryId());
+        if (!optionalCategory.isPresent())
             return new ApiResponse("language not found", false);
 
-        boolean byName = taskRepository.existsByNameAndLanguageId(taskDto.getName(), taskDto.getLanguageId());
+        boolean byName = taskRepository.existsByNameAndCategoryId(taskDto.getName(), taskDto.getCategoryId());
         if (byName)
             return new ApiResponse("already exist task", false);
 
@@ -47,7 +47,7 @@ public class TaskService {
         task.setHint(taskDto.getHint());
         task.setMethod(taskDto.getMethod());
         task.setHasStar(taskDto.getHasStar());
-        task.setLanguage(optionalLanguage.get());
+        task.setCategory(optionalCategory.get());
 
         taskRepository.save(task);
 
@@ -61,11 +61,11 @@ public class TaskService {
         if (!optionalTask.isPresent())
             return new ApiResponse("task not found", false);
 
-        Optional<Language> optionalLanguage = languageRepository.findById(taskDto.getLanguageId());
-        if (!optionalLanguage.isPresent())
-            return new ApiResponse("language not found", false);
+        Optional<Category> optionalCategory = categoryRepository.findById(taskDto.getCategoryId());
+        if (!optionalCategory.isPresent())
+            return new ApiResponse("category not found", false);
 
-        boolean byName = taskRepository.existsByNameAndLanguageIdAndIdNot(taskDto.getName(), taskDto.getLanguageId(), id);
+        boolean byName = taskRepository.existsByNameAndCategoryIdAndIdNot(taskDto.getName(), taskDto.getCategoryId(), id);
         if (byName)
             return new ApiResponse("already exist task", false);
 
@@ -77,7 +77,7 @@ public class TaskService {
         task.setHint(taskDto.getHint());
         task.setMethod(taskDto.getMethod());
         task.setHasStar(taskDto.getHasStar());
-        task.setLanguage(optionalLanguage.get());
+        task.setCategory(optionalCategory.get());
         taskRepository.save(task);
 
         return new ApiResponse("saved", true);

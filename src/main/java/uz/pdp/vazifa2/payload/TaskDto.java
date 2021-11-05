@@ -25,6 +25,6 @@ public class TaskDto {
 
     private Boolean hasStar = false;
 
-    private Integer languageId;
+    private Integer categoryId;
 
 }

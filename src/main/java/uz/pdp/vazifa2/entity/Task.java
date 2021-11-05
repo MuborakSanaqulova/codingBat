@@ -31,6 +31,6 @@ public class Task {
     private Boolean hasStar;
 
     @ManyToOne
-    private Language language;
+    private Category category;
 
 }
