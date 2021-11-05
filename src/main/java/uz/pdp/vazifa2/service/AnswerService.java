@@ -4,13 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.vazifa2.common.ApiResponse;
 import uz.pdp.vazifa2.entity.Answer;
-import uz.pdp.vazifa2.entity.Example;
 import uz.pdp.vazifa2.entity.Task;
 import uz.pdp.vazifa2.entity.User;
 import uz.pdp.vazifa2.payload.AnswerDto;
-import uz.pdp.vazifa2.payload.ExampleDto;
 import uz.pdp.vazifa2.repository.AnswerRepository;
-import uz.pdp.vazifa2.repository.ExampleRepository;
 import uz.pdp.vazifa2.repository.TaskRepository;
 import uz.pdp.vazifa2.repository.UserRepository;
 

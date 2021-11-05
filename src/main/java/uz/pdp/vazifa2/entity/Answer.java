@@ -19,9 +19,9 @@ public class Answer {
 
     private Boolean isCorrect;
 
-    @OneToOne
+    @ManyToOne
     private Task task;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 }
