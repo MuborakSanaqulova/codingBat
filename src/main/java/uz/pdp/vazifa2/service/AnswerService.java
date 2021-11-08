@@ -45,10 +45,6 @@ public class AnswerService {
         if (!optionalUser.isPresent())
             return new ApiResponse("user not found", false);
 
-        boolean byText = answerRepository.existsByText(answerDto.getText());
-        if (byText)
-            return new ApiResponse("already exist answer", false);
-
         Answer answer = new Answer();
         answer.setText(answerDto.getText());
         answer.setTask(optionalTask.get());
@@ -73,10 +69,6 @@ public class AnswerService {
         Optional<User> optionalUser = userRepository.findById(answerDto.getUserId());
         if (!optionalUser.isPresent())
             return new ApiResponse("user not found", false);
-
-        boolean byText = answerRepository.existsByTextAndIdNot(answerDto.getText(), id);
-        if (byText)
-            return new ApiResponse("already exist answer", false);
 
         Answer answer = new Answer();
         answer.setId(id);
